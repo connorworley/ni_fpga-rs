@@ -20,16 +20,16 @@ impl Datatype for bool {
         session: Session,
         offset: Offset,
     ) -> Result<Self, Status> {
-        let mut value: bool = Default::default();
+        let mut target: bool = Default::default();
         let status = Status::from(unsafe {
             ffi::ReadBool(
                 session.handle,
                 offset,
-                &mut value as *mut bool,
+                &mut target as *mut bool,
             )
         });
         match status {
-            Status::Success => Ok(value),
+            Status::Success => Ok(target),
             _ => Err(status),
         }
     }

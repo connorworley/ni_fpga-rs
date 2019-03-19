@@ -56,14 +56,11 @@ impl Session {
 
 impl Drop for Session {
     fn drop(&mut self) {
-        let status = Status::from(unsafe {
+        unsafe {
             ffi::Close(
                 self.handle,
                 0,
             )
-        });
-        if status != Status::Success {
-            panic!(status);
-        }
+        };
     }
 }
